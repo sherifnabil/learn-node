@@ -11,12 +11,12 @@ const { Genre, validate } = require('../models/genre');
 //   .catch((e) => console.log('Error ', e))
 // });
 
-router.get('/', async (req, res) => { // 2
+router.get('/', async (req, res, next) => { // 2
   try {
     const genres = await Genre.find();
     res.send(genres);
   } catch (ex) {
-    res.status(500).send('Something failed.')
+    next(ex)
   }
 });
 
