@@ -12,7 +12,7 @@ module.exports = function(error, req, res, next) {
     ],
   });
 
-  logger.error("Error in 127.0.0.1 - there's no place like home", error);
+  logger.error(error.message, error);
 
   return  res.status(500).send('Something failed.')
 }
