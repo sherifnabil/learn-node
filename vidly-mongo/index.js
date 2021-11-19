@@ -14,11 +14,17 @@ const users = require('./routes/users');
 const auth = require('./routes/auth');
 const error = require('./middleware/error');
 
+process.on('uncaughtException', (ex)  =>  {
+  console.log('WE GOT AN UNCAUGHT EXCEPTION!!!');
+});
+
 // when export env variable run project name _ your variable as next export vidly_jwtPrivateKey=mySecureKey
 if (!config.get('jwtPrivateKey')) {
   console.error('FATAL ERROR: jwtPrivateKey was not defined.');
   process.exit(1);
 }
+
+throw new Error('Something Failed during startup.');
 
 mongoose.connect('mongodb://localhost/playground')
   .then(() => console.log('Connected....'))
