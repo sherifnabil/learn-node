@@ -12,8 +12,8 @@ const { Genre, validate } = require('../models/genre');
 // });
 
 router.get('/', async (req, res) => { // 2
-    const genres = await Genre.find();
-    res.send(genres);
+  const genres = await Genre.find();
+  res.send(genres);
 });
 
 router.post('/', auth, async (req, res) => {
