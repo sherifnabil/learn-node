@@ -1,4 +1,5 @@
 const winston = require('winston');
+require('winston-mongodb');
 
 module.exports = function(error, req, res, next) {
 
@@ -6,7 +7,8 @@ module.exports = function(error, req, res, next) {
     level: 'error',
     format: winston.format.json(),
     transports: [
-      new winston.transports.File({ filename: 'error.log', level: 'error', message: error }),
+      new winston.transports.File({ filename: 'error.log', level: 'error', message: error }), // for File Errors logging
+      new winston.transports.MongoDB({ db: 'mongodb://localhost/playground', level: 'error', message: error }), // for DB Errors logging
     ],
   });
 
