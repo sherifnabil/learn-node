@@ -15,7 +15,9 @@ const auth = require('./routes/auth');
 const error = require('./middleware/error');
 
 process.on('uncaughtException', (ex)  =>  {
-  console.log('WE GOT AN UNCAUGHT EXCEPTION!!!');
+  console.log('WE GOT AN UNCAUGHT EXCEPTION!!!', ex);
+  // winston.add(new winston.transports.File({ filename: 'error.log', level: 'error', message: "WE GOT AN UNCAUGHT EXCEPTION" }))
+
 });
 
 // when export env variable run project name _ your variable as next export vidly_jwtPrivateKey=mySecureKey
@@ -24,7 +26,16 @@ if (!config.get('jwtPrivateKey')) {
   process.exit(1);
 }
 
-throw new Error('Something Failed during startup.');
+// throw new Error('Something Failed during startup.');
+
+// const p = Promise.reject(new Error('Something Failed Miserably!'));
+// p.then(r => console.log('Done'));
+
+process.on('unhandledRejection', (ex)  =>  {
+  winston.exceptions.handle(new winston.transports.File({ filename: 'unhandledExceptions.log'}))
+  // process.exit(1);
+  throw ex;
+});
 
 mongoose.connect('mongodb://localhost/playground')
   .then(() => console.log('Connected....'))
