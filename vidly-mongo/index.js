@@ -6,7 +6,7 @@ Joi.objectId = require('joi-objectid')(Joi);
 const express = require('express');
 const app = express();
 require('./startup/routes')(app);
-require('./startup/database')();
+require('./startup/db')();
 
 process.on('uncaughtException', (ex)  =>  {
   console.log('WE GOT AN UNCAUGHT EXCEPTION!!!', ex);
