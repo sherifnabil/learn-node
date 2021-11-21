@@ -14,6 +14,7 @@ module.exports = function() {
 
   process.on('uncaughtException', (ex)  =>  {
     console.log('WE GOT AN UNCAUGHT EXCEPTION!!!', ex);
+    new winston.transports.Console({ colorize: true, prettyPrint: true }),
     winston.add(new winston.transports.File, { filename: 'error.log'})
     winston.add(new winston.transports.MongoDB, { db: 'mongodb://localhost/playground', level: 'info'})
   });
