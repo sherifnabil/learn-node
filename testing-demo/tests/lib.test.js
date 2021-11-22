@@ -24,3 +24,11 @@ describe('greet', () => {
     expect(result).toContain('Sherif');
   });
 });
+
+describe('getCurrencies', () => {
+  it('it should return supported currencies', () => {
+    const result = lib.getCurrencies();
+    expect(result).toContain('USD');
+    expect(result).toEqual(expect.arrayContaining(['USD', 'EUR', 'AUD']));
+  });
+});
