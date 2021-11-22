@@ -16,3 +16,11 @@ describe('absloute', () => {
     expect(result).toBe(0);
   });
 });
+
+describe('greet', () => {
+  it('should return a greeting message', () => {
+    const result = lib.greet('Sherif');
+    expect(result).toMatch(/sherif/i);
+    expect(result).toContain('Sherif');
+  });
+});
