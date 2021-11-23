@@ -1,5 +1,5 @@
 const winston = require('winston');
-require('winston-mongodb');
+// require('winston-mongodb');
 require('express-async-errors');
 
 module.exports = function() {
@@ -16,6 +16,6 @@ module.exports = function() {
     console.log('WE GOT AN UNCAUGHT EXCEPTION!!!', ex);
     new winston.transports.Console({ colorize: true, prettyPrint: true }),
     winston.add(new winston.transports.File, { filename: 'error.log'})
-    winston.add(new winston.transports.MongoDB, { db: 'mongodb://localhost/playground', level: 'info'})
+    // winston.add(new winston.transports.MongoDB, { db: 'mongodb://localhost/playground', level: 'info'})
   });
 }
