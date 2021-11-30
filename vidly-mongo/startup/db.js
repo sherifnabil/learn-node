@@ -1,6 +1,8 @@
 const mongoose = require('mongoose');
+const config = require('config');
 
 module.exports = function() {
-  mongoose.connect('mongodb://localhost/playground')
-  .then(() => console.log('Connected....'))
+  const db = config.get('db');
+  mongoose.connect(db)
+  .then(() => console.log(`Connected to ${db}....`))
 }
