@@ -52,11 +52,7 @@ describe('/api/genres', () => {
     });
 
     it('should return a 400 if genre is less than 5 charcters', async() => {
-      const token = User({
-        name: 'sherif',
-        email: 's@s.com',
-        password: 'password',
-      }).generateAuthToken();
+      const token = User().generateAuthToken();
 
       const response = await request(server)
       .post('/api/genres')
@@ -67,11 +63,7 @@ describe('/api/genres', () => {
     });
 
     it('should return a 400 if genre is more than 50 charcters', async() => {
-      const token = User({
-        name: 'sherif',
-        email: 's@s.com',
-        password: 'password',
-      }).generateAuthToken();
+      const token = User().generateAuthToken();
 
       const response = await request(server)
       .post('/api/genres')
@@ -82,11 +74,7 @@ describe('/api/genres', () => {
     });
 
     it('should save the genre if it is valid', async() => {
-      const token = User({
-        name: 'sherif',
-        email: 's@s.com',
-        password: 'password',
-      }).generateAuthToken();
+      const token = User().generateAuthToken();
 
       const response = await request(server)
       .post('/api/genres')
@@ -99,11 +87,7 @@ describe('/api/genres', () => {
     });
 
     it('should return the genre if it is valid', async() => {
-      const token = User({
-        name: 'sherif',
-        email: 's@s.com',
-        password: 'password',
-      }).generateAuthToken();
+      const token = User().generateAuthToken();
 
       const response = await request(server)
       .post('/api/genres')
