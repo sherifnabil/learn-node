@@ -1,4 +1,5 @@
 const request = require('supertest');
+const mongoose = require('mongoose');
 const {Genre} =  require('../../models/genre');
 const {User} =  require('../../models/user');
 let server;
@@ -93,4 +94,80 @@ describe('/api/genres', () => {
       expect(response.body).toHaveProperty('name', name);
     });
   });
+
+  describe('PUT /:id', () => {
+    let token;
+    let name;
+    let id;
+
+    const exec = async () => {
+      return await request(server)
+      .put('/api/genres/' + id)
+      .set('x-auth-token', token)
+      .send({name});
+    }
+
+    beforeEach(() => {
+      token = User().generateAuthToken();
+      name = 'genre';
+    });
+
+    it('should return a 400 if genre name is less than 5 characters', async() => {
+      const genre = new Genre({name: 'my genre'});
+      await genre.save();
+
+      name = 'ge';
+      id = genre.id
+
+      const response = await exec();
+      expect(response.status).toBe(400);
+    });
+
+    it('should return a 200 if genre name is valid', async() => {
+      const genre = new Genre({name: 'my genre'});
+      await genre.save();
+      id = genre.id
+
+      const response = await exec();
+      expect(response.status).toBe(200);
+    });
+
+    it('should return a 404 if genre id is invalid', async() => {
+      id = mongoose.Types.ObjectId();
+
+      const response = await exec();
+      expect(response.status).toBe(404);
+    });
+  });
+
+  // describe('DELETE /:id', () => {
+  //   let token;
+  //   let id;
+
+  //   const exec = async () => {
+  //     return  await request(server)
+  //     .delete('/api/genres/' + id)
+  //     .set('x-auth-token', token);
+  //   }
+
+  //   beforeEach(() => {
+  //     token = User().generateAuthToken();
+  //   });
+
+    // it('should return a 404 if genre id is invalid', async () => {
+    //   id = 1235;
+
+    //   const response = await exec();
+    //   expect(response.status).toBe(404);
+    // });
+
+    // it('should return a 200 if genre id is valid', async() => {
+    //   const genre = new Genre({name: 'my genre'});
+    //   await genre.save();
+    //   id = genre.id
+
+    //   const response = await exec();
+    //   expect(response.status).toBe(200);
+    // });
+  // });
 });
