@@ -7,8 +7,8 @@ let server;
 describe('/api/genres', () => {
   beforeEach(() => server = require('../../index')); // should load the server before each test and stop it after each test to avoid exception as it is running in the index.js
   afterEach(async () => {
-    server.close()
-    await Genre.remove({});
+    await Genre.deleteMany({});
+    await server.close()
   });
 
   describe('GET /', () => {
@@ -18,7 +18,7 @@ describe('/api/genres', () => {
         { name: 'genre2' },
       ]);
 
-      const response = await request(server).get('/api/genres')
+      const response = await request(server).get('/api/genres');
       expect(response.status).toBe(200);
       // expect(response.body.length).toBe(2);
       expect(response.body.some(g => g.name === 'genre2')).toBeTruthy()
