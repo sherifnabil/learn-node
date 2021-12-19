@@ -15,7 +15,7 @@ const { Genre, validate } = require('../models/genre');
 router.get('/', async (req, res) => { // 2
   // throw new Error('Message Here!')
   const genres = await Genre.find();
-  res.send(genres);
+  res.status(200).send(genres);
 });
 
 router.post('/', auth, async (req, res) => {
