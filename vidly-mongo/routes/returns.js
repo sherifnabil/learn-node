@@ -1,5 +1,5 @@
 const express = require('express');
-const Joi = require('Joi');
+const Joi = require('joi');
 const auth = require('../middleware/auth');
 const validate = require('../middleware/validate');
 const router = express.Router()
